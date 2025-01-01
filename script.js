@@ -145,7 +145,7 @@ function GameController(
         else {
             // prevents player from marking already marked cell
             if (board.markCell(row, column, getActivePlayer().token)) {
-                switchPlayerTurn(); 
+                if (!board.isGameWon()) switchPlayerTurn(); 
             }
             printNewRound();
         }
