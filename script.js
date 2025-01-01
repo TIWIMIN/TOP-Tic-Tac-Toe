@@ -160,9 +160,10 @@ function GameController(
 }
 
 screenController = (function ScreenController() {
-    const game = GameController(); 
+    let game = GameController(); 
     const boardDiv = document.querySelector('.board'); 
     const playerDiv = document.querySelector('.playerTurn'); 
+    const resetDiv = document.querySelector('.reset'); 
 
     const updateScreen = () => {
         boardDiv.textContent = ''; 
@@ -200,6 +201,12 @@ screenController = (function ScreenController() {
         updateScreen();
     }
     boardDiv.addEventListener("click", clickHandlerBoard); 
+
+    function clickHandlerReset(e) {
+        game = GameController()
+        updateScreen(); 
+    }
+    resetDiv.addEventListener("click", clickHandlerReset); 
 
     updateScreen();
 
