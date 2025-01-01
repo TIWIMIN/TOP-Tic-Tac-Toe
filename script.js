@@ -121,7 +121,14 @@ function GameController(
 
     const switchPlayerTurn = () => {
         activePlayer = activePlayer === players[0] ? players[1] : players[0];
-    };
+    }
+
+    const changePlayerName = (name1, name2) => {
+        players[0].name = name1; 
+        players[1].name = name2; 
+        console.log(players[0].name);
+        console.log(name2); 
+    }
 
     const getActivePlayer = () => activePlayer; 
 
@@ -155,6 +162,7 @@ function GameController(
 
     return {
         playRound, 
+        changePlayerName,
         getActivePlayer, 
         getBoard: board.getBoard, 
         isGameWon: board.isGameWon
@@ -166,6 +174,12 @@ screenController = (function ScreenController() {
     const boardDiv = document.querySelector('.board'); 
     const playerDiv = document.querySelector('.playerTurn'); 
     const resetDiv = document.querySelector('.reset'); 
+    const dialog = document.querySelector("dialog"); 
+    const submit = document.querySelector("dialog button"); 
+    const playerOneForm = document.querySelector("#playerOne");
+    const playerTwoForm = document.querySelector("#playerTwo");
+
+    dialog.showModal();
 
     const updateScreen = () => {
         boardDiv.textContent = ''; 
@@ -209,10 +223,22 @@ screenController = (function ScreenController() {
     }
     boardDiv.addEventListener("click", clickHandlerBoard); 
     
-    resetDiv.addEventListener("click", (e) => {
+    resetDiv.addEventListener("click", () => {
         game = GameController()
+        dialog.showModal();
         updateScreen(); 
     }); 
+
+    submit.addEventListener("click", (e) =>  {
+        e.preventDefault();
+        const name1 = playerOneForm.value; 
+        const name2 = playerTwoForm.value; 
+        if (!(name1 === "" || name2 === "")){
+            game.changePlayerName(name1, name2); 
+            dialog.close(); 
+            updateScreen();
+        } 
+    });
 
     updateScreen();
 
