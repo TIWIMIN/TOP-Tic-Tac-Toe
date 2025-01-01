@@ -50,10 +50,10 @@ function GameBoard() {
 
             for (let j = 0; j < 3; j++) {
                 if (j > 0) {
-                    if (board[i][j].getValue() !== board[i][j - 1].getValue() || board[i][j] === '0') {
+                    if (board[i][j].getValue() !== board[i][j - 1].getValue() || board[i][j].getValue() === 0) {
                         rowCheck = false; 
                     }
-                    if (board[j][i].getValue() !== board[j - 1][i].getValue() || board[i][j] === '0') {
+                    if (board[j][i].getValue() !== board[j - 1][i].getValue() || board[j][i].getValue() === 0) {
                         colCheck = false; 
                     }
                 }
@@ -69,8 +69,8 @@ function GameBoard() {
 
         for (let i = 0; i < 3; i++) {
             if (i > 0) {
-                if (diagDown[i].getValue() !== diagDown[i - 1].getValue() || diagDown[i] == '0') diagDownCheck = false; 
-                if (diagUp[i].getValue() !== diagUp[i - 1].getValue() || diagUp[i] == '0') diagUpCheck = false; 
+                if (diagDown[i].getValue() !== diagDown[i - 1].getValue() || diagDown[i].getValue() == 0) diagDownCheck = false; 
+                if (diagUp[i].getValue() !== diagUp[i - 1].getValue() || diagUp[i].getValue() == 0) diagUpCheck = false; 
             }
         }
 
@@ -137,12 +137,13 @@ function GameController(
             if (winner == 'X') {
                 console.log("Player One has won the game!");
             } else if (winner == 'O') {
-                console.log("player Two has won the game!");
+                console.log("Player Two has won the game!");
             }
         } else if (board.isBoardFull()) {
             console.log("Tie Game");
         }
         else {
+            // prevents player from marking already marked cell
             if (board.markCell(row, column, getActivePlayer().token)) {
                 switchPlayerTurn(); 
             }
@@ -155,7 +156,8 @@ function GameController(
     return {
         playRound, 
         getActivePlayer, 
-        getBoard: board.getBoard
+        getBoard: board.getBoard, 
+        isGameWon: board.isGameWon
     };
 }
 
@@ -171,7 +173,12 @@ screenController = (function ScreenController() {
         const board = game.getBoard(); 
         const activePlayer = game.getActivePlayer(); 
 
-        playerDiv.textContent = `${activePlayer.name}'s turn`; 
+        if (game.isGameWon()) {
+            playerDiv.textContent = `${activePlayer.name} has won the game!`; 
+        }
+        else {
+            playerDiv.textContent = `${activePlayer.name}'s turn`; 
+        }
 
         board.forEach((row, rowIndex) => {
             row.forEach((cell, columnIndex) => {
@@ -197,16 +204,15 @@ screenController = (function ScreenController() {
             return 
         }
         game.playRound(selectedRow, selectedColumn); 
-        e.target.textContent = e.target.dataset.value; 
+
         updateScreen();
     }
     boardDiv.addEventListener("click", clickHandlerBoard); 
-
-    function clickHandlerReset(e) {
+    
+    resetDiv.addEventListener("click", (e) => {
         game = GameController()
         updateScreen(); 
-    }
-    resetDiv.addEventListener("click", clickHandlerReset); 
+    }); 
 
     updateScreen();
 
