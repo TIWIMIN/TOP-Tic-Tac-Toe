@@ -165,7 +165,8 @@ function GameController(
         changePlayerName,
         getActivePlayer, 
         getBoard: board.getBoard, 
-        isGameWon: board.isGameWon
+        isGameWon: board.isGameWon, 
+        isBoardFull: board.isBoardFull, 
     };
 }
 
@@ -190,6 +191,9 @@ screenController = (function ScreenController() {
         if (game.isGameWon()) {
             playerDiv.textContent = `${activePlayer.name} has won the game!`; 
         }
+        else if (game.isBoardFull()) {
+            playerDiv.textContent = "Tie game!"; 
+        }
         else {
             playerDiv.textContent = `${activePlayer.name}'s turn`; 
         }
@@ -198,8 +202,11 @@ screenController = (function ScreenController() {
             row.forEach((cell, columnIndex) => {
                 const cellButton = document.createElement("button"); 
                 cellButton.classList.add("cell");
-                if (cell.getValue() !== 0) {
-                    cellButton.classList.add("clicked"); 
+                if (cell.getValue() === 'X') {
+                    cellButton.classList.add("clickedX"); 
+                }
+                else if (cell.getValue() === 'O') {
+                    cellButton.classList.add("clickedO");
                 }
                 cellButton.dataset.row = rowIndex;
                 cellButton.dataset.column = columnIndex; 

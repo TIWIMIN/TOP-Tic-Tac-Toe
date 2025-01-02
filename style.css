@@ -20,6 +20,8 @@ body {
   -webkit-font-smoothing: antialiased;
   width: 100vw; 
   height: 100vh; 
+  font-family: inter, system-ui; 
+  background-color: #1A1B1E; 
 }
 
 /* 5. Improve media defaults */
@@ -59,34 +61,127 @@ h1, h2, h3, h4, h5, h6 {
   height: 100vh;
   justify-content: center; 
   align-content: center;
-  grid-row-gap: 3rem;
-  padding-bottom: 33vh;
+  grid-row-gap: 50px;
+  padding-bottom: 15vh;
 }
 
 .playerTurn {
   text-align: center;
+  font-size: 32px;
+  color: #FFFFFF; 
 }
 
 .board {
   display: grid;
   grid-template: repeat(3, 1fr) / repeat(3, 1fr); 
-  grid-gap: 0.1rem;
+  grid-gap: 15px;
   grid-auto-flow: row;
-  width: 20rem; 
-  height: 20rem;
+  width: 405px; 
+  height: 405px;
 }
 
 .cell {
   color: transparent; 
+  border-radius: 16px;
+  border-color: transparent;
+  background-color: #343A40; 
+  width: 125px; 
+  height: 125px; 
 }
 
-.clicked {
-  color: black; 
+.cell:hover {
+  background-color: #5D6166; 
+}
+
+.clickedX {
+  background-image:url('assets/x.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 74px; 
+}
+
+.clickedO {
+  background-image:url('assets/circle.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 78px; 
 }
 
 .reset {
-  height: 2rem; 
-  width: 8rem;
+  height: 75px; 
+  width: 216px;
   justify-self: center;
+  border-radius: 16px; ;
+  border-color: transparent;
+  background-color: #721F1F; 
+  color: #FFFFFF; 
+  font-size: 32px; 
+}
 
+.reset:hover {
+  background-color: #8E4C4C; 
+}
+
+dialog { 
+  place-self: center;
+  background-color: #343A40;
+  width: 650px; 
+  height: 750px; 
+  border-color: transparent; 
+  border-radius: 28px;
+  overflow: hidden;
+}
+
+form {
+  display: grid; 
+  justify-content: center;
+  grid-row-gap: 75px;
+  padding: 161px 130px; 
+}
+
+form legend{
+  color: #FFFFFF; 
+  text-align: center;
+  font-size: 32px; 
+}
+
+.playerWrapper {
+  display: grid; 
+  grid-row-gap: 40px; 
+}
+
+form input {
+  width: 327px; 
+  height: 75px; 
+  border-radius: 16px;
+  border: 5px solid #FFFFFF;
+  background-color: transparent; 
+  padding: 22px 16px 20px 22px; 
+  color: #FFFFFF; 
+  font-size: 32px;
+}
+
+form input::placeholder {
+  font-size: 32px; 
+  text-align: center;
+  color: #999C9F;
+}
+
+form input:focus {
+  outline: none; 
+}
+
+form button {
+  width: 149px; 
+  height: 75px; 
+  justify-self: center; 
+  background-color: #1D7E05;
+  border: none; 
+  border-radius: 16px;
+  color: #FFFFFF;
+  font-size: 32px;
+}
+
+form button:hover {
+  background-color: #4A9837;
 }

@@ -11,15 +11,16 @@
     <div class="container">
         <div class="playerTurn"></div>
         <div class="board"></div>
-        <button class="reset">Reset Game</button>
+        <button class="reset">reset game</button>
     </div>
     <dialog>
         <form autofocus action="" method = "post">
-            <label for="playerOne">Player One's name: </label>
-            <input type="text" id="playerOne">
+            <legend>player names</legend>
 
-            <label for="playerTwo">Player Two's name: </label>
-            <input type="text" id="playerTwo">
+                <div class="playerWrapper">
+                    <input type="text" id="playerOne" placeholder="player one's name:">
+                    <input type="text" id="playerTwo" placeholder="player two's name:">
+                </div>
 
             <button type="submit">Submit</button>
         </form>
